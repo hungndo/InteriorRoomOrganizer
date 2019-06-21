@@ -8,7 +8,7 @@ class Furniture(Model, Transform):
         Model.__init__(self)
         Transform.__init__(self)
 
-        self.ROTATE_SPEED = 0.5
+        self.ROTATE_SPEED = 0.3
 
         size = 50.0
         self.vertices = [

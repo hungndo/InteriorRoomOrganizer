@@ -25,7 +25,7 @@ class MyCanvas(GLCanvas):
         self.input = InputManager(850, 700, self.room, self.furniture, self.camera)
 
         # init canvas
-        glClearColor(0.3, 0.3, 0.3, 0.0)
+        glClearColor(0.0, 0.0, 0.0, 0.0)
         glClearDepth(1)
         glEnable(GL_DEPTH_TEST)
         glDepthFunc(GL_LESS)
@@ -34,18 +34,20 @@ class MyCanvas(GLCanvas):
 
         # bind function
         self.Bind(wx.EVT_SIZE, self.resize)
-        self.Bind(wx.EVT_PAINT, self.OnPaint)
+        self.Bind(wx.EVT_PAINT, self.paint)
         self.Bind(wx.EVT_KEY_DOWN, self.input.keyboard)
         self.Bind(wx.EVT_KEY_UP, self.input.keyboard_up)
         self.Bind(wx.EVT_MOTION, self.input.mouse_passive_motion)
+        self.Bind(wx.EVT_IDLE, self.OnIdle)
 
-    def OnPaint(self, event):
-        wx.PaintDC(self)
-        self.OnDraw(event)
-
-    def OnDraw(self,event):
-        self.display()
+    def OnIdle(self, event):
         self.Refresh()
+
+    def paint(self, event):
+
+        #wx.PaintDC(self)
+        self.display()
+        #self.Refresh()
 
     def display(self):
 

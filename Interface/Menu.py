@@ -5,7 +5,6 @@ class Menu:
         self.value
         print("something")
 
-
     @staticmethod
     def create():
         print("something")

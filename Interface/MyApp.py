@@ -8,3 +8,6 @@ class MyApp(wx.App):
         frame = MyFrame()
         frame.Show()
         return True
+
+    def OpenSelectRoomWindow(self):
+        print("lalala")

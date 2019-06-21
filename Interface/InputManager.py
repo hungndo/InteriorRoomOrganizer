@@ -1,5 +1,5 @@
 from OpenGL.GLUT import *
-import wx
+
 
 class InputManager:
 
@@ -15,7 +15,6 @@ class InputManager:
     def keyboard(self, *args):
 
         key = chr(args[0].GetKeyCode())
-
         if key == 'A':
             self.camera.move_left()
         if key == 'D':
@@ -37,6 +36,11 @@ class InputManager:
             self.object_list.move_inward(1)
         if key == 'K':
             self.object_list.move_outward(1)
+        if key == 'M':
+            self.object_list.yaw_left()
+        if key == ',':
+            self.object_list.yaw_right()
+
 
     def keyboard_up(self, *args):
 
@@ -53,6 +57,8 @@ class InputManager:
             self.object_list.stop_moving_in_x_direction()
         if key == 'I' or key == 'K':
             self.object_list.stop_moving_in_z_direction()
+        if key == 'M' or key == ',':
+            self.object_list.stop_yawing()
 
     def mouse_passive_motion(self, *args):
 
@@ -65,15 +71,3 @@ class InputManager:
             self.camera.yaw_right()
         else:
             self.camera.stop_yawing()
-
-    def mouse(self, *args):
-
-        if args[1] == GLUT_DOWN:
-            if args[0] == GLUT_LEFT_BUTTON:
-                self.object_list.yaw_left()
-            if args[0] == GLUT_RIGHT_BUTTON:
-                self.object_list.yaw_right()
-
-        if args[1] == GLUT_UP:
-            if args[0] == GLUT_LEFT_BUTTON or args[0] == GLUT_RIGHT_BUTTON:
-                self.object_list.stop_yawing()
