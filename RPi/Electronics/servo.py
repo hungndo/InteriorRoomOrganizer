@@ -19,14 +19,18 @@ GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(vservo, GPIO.OUT)
 pitch = GPIO.PWM(vservo, 50)
-pitch.start(PITCH_MIN_DUTY_CYCLE)
 
 GPIO.setup(hservo, GPIO.OUT)
 yaw = GPIO.PWM(hservo, 50)
-yaw.start(YAW_MIN_DUTY_CYCLE)
 
 pitch_angle = 0
 yaw_angle = 0
+
+def reset():
+
+	pitch.start(PITCH_MIN_DUTY_CYCLE)
+	yaw.start(YAW_MIN_DUTY_CYCLE)
+	time.sleep(1)
 
 
 def turn_pitch(counterclockwise, delta):
@@ -51,7 +55,7 @@ def turn_pitch(counterclockwise, delta):
         pitch.ChangeDutyCycle(pitch_period)
 
     time.sleep(0.005)
-    print("PITCH: " + str(pitch_period) + " " + str((pitch_period - PITCH_MIN_DUTY_CYCLE) / PERIOD_PER_PITCH_ANGLE))
+    #print("PITCH: " + str(pitch_period) + " " + str((pitch_period - PITCH_MIN_DUTY_CYCLE) / PERIOD_PER_PITCH_ANGLE))
 
 
 def turn_yaw(counterclockwise, delta):
@@ -76,4 +80,4 @@ def turn_yaw(counterclockwise, delta):
         yaw.ChangeDutyCycle(yaw_period)
 
     time.sleep(0.005)
-    print("YAW: " + str(yaw_period) + " " + str((yaw_period - YAW_MIN_DUTY_CYCLE) / PERIOD_PER_YAW_ANGLE))
+    #print("YAW: " + str(yaw_period) + " " + str((yaw_period - YAW_MIN_DUTY_CYCLE) / PERIOD_PER_YAW_ANGLE))
