@@ -2,6 +2,7 @@ import wx
 from Interface.MyFrame import MyFrame
 import asyncio
 
+
 class MyApp(wx.App):
 
     def OnInit(self):
