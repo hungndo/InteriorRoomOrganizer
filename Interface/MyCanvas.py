@@ -6,7 +6,7 @@ from Interface.Room import Room
 from Interface.Furniture import Furniture
 from Interface.InputManager import InputManager
 from Interface.Camera import *
-
+import asyncio
 
 class MyCanvas(GLCanvas):
 
@@ -76,6 +76,7 @@ class MyCanvas(GLCanvas):
         self.SwapBuffers()
 
     def resize(self, event):
+
         size = self.GetClientSize()
         glViewport(0, 0, size.width, size.height)
         glMatrixMode(GL_PROJECTION)

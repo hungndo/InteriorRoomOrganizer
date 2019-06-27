@@ -1,39 +1,19 @@
-import wx
-from wx.glcanvas import *
+import asyncio
 
+def hello_world(loop):
+    """A callback to print 'Hello World' and stop the event loop"""
+    print('Hello World')
+    #loop.stop()
 
-class MyCanvas(GLCanvas):
+loop = asyncio.get_event_loop()
 
-    def __init__(self, parent):
-        GLCanvas.__init__(self, parent, -1, size=(1000, 700))
-        self.Bind(wx.EVT_PAINT, self.OnPaint)
+# Schedule a call to hello_world()
+loop.call_soon(hello_world, loop)
 
-    def OnPaint(self, event):
-        print("HI")
-        self.Refresh()
-
-class MyFrame(wx.Frame):
-    def __init__(self):
-        self.size = (1000, 700)
-        wx.Frame.__init__(self, None, title ="Interior Room Organizer", size=self.size)
-        self.canvas = MyCanvas(self)
-
-
-class MyApp(wx.App):
-    def OnInit(self):
-        frame = MyFrame()
-        frame.Show()
-        return True
-
-
-if __name__ == "__main__":
-    # app = MyApp()
-    # app.MainLoop()
-    app = wx.App(False)
-    frame = wx.Frame(None, title = "GLCanvas")
-    canvas = MyCanvas(frame)
-    frame.Show()
-    app.MainLoop()
-
+# Blocking call interrupted by loop.stop()
+try:
+    loop.run_forever()
+finally:
+    loop.close()
 
 

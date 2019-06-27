@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91dd9f03-a6ba-4fe8-8856-5e0e01a9839c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Interface/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GitHub/lidar-scanner/FinalProjectLidar/FinalProjectLidar/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../GitHub/lidar-scanner/FinalProjectLidar/FinalProjectLidar/Main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/InteriorRoomOrganizer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/InteriorRoomOrganizer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interface/Furniture.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/Furniture.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interface/InputManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/InputManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interface/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/Menu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Interface/MyApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/MyApp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Interface/MyCanvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/MyCanvas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Interface/MyPanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/MyPanel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnusedFiles/anothertest.py" beforeDir="false" afterPath="$PROJECT_DIR$/UnusedFiles/anothertest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,16 +23,37 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$testing.coverage" NAME="testing Coverage Results" MODIFIED="1561062518325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UnusedFiles" />
-    <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1561085354330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Interface" />
+    <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1561476986613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Interface" />
     <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$main.coverage" NAME="main Coverage Results" MODIFIED="1560995075002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UnusedFiles" />
+    <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$server__2_.coverage" NAME="server (2) Coverage Results" MODIFIED="1561610119670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Interface" />
+    <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$server__1_.coverage" NAME="server (1) Coverage Results" MODIFIED="1561600358380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UnusedFiles" />
+    <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$anothertest.coverage" NAME="anothertest Coverage Results" MODIFIED="1561485619181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UnusedFiles" />
+    <SUITE FILE_PATH="coverage/InteriorRoomOrganizer$server.coverage" NAME="server Coverage Results" MODIFIED="1561580733049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Interface" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interface/main.py">
+        <entry file="file://$PROJECT_DIR$/Interface/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            <state relative-caret-position="187">
+              <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface/MyApp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="17">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -47,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface/MyFrame.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="61">
+              <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -59,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Interface/MyPanel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1026">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="180">
+              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -71,29 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface/MyCanvas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interface/InputManager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UnusedFiles/testing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2278">
-              <caret line="135" selection-start-line="135" selection-end-line="135" />
+            <state relative-caret-position="1087">
+              <caret line="73" column="8" lean-forward="true" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -102,6 +107,18 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>start_scanning</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -113,17 +130,24 @@
         <option value="$PROJECT_DIR$/Interface/Furniture.py" />
         <option value="$PROJECT_DIR$/Interface/Menu.py" />
         <option value="$PROJECT_DIR$/UnusedFiles/testing.py" />
-        <option value="$PROJECT_DIR$/Interface/MyApp.py" />
         <option value="$PROJECT_DIR$/Interface/MyFrame.py" />
-        <option value="$PROJECT_DIR$/Interface/MyCanvas.py" />
         <option value="$PROJECT_DIR$/Interface/InputManager.py" />
+        <option value="$PROJECT_DIR$/Interface/Model.py" />
+        <option value="$PROJECT_DIR$/Interface/main.py" />
+        <option value="$PROJECT_DIR$/UnusedFiles/anothertest.py" />
+        <option value="$PROJECT_DIR$/server.py" />
+        <option value="$PROJECT_DIR$/UnusedFiles/server.py" />
+        <option value="$PROJECT_DIR$/Interface/main_interface.py" />
+        <option value="$PROJECT_DIR$/Interface/MyCanvas.py" />
+        <option value="$PROJECT_DIR$/Interface/server.py" />
+        <option value="$PROJECT_DIR$/Interface/MyApp.py" />
         <option value="$PROJECT_DIR$/Interface/MyPanel.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="945" />
-    <option name="width" value="987" />
+    <option name="x" value="949" />
+    <option name="width" value="980" />
     <option name="height" value="1044" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -148,12 +172,40 @@
             <path>
               <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
               <item name="InteriorRoomOrganizer" type="462c0819:PsiDirectoryNode" />
-              <item name="Models" type="462c0819:PsiDirectoryNode" />
+              <item name="UnusedFiles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
               <item name="InteriorRoomOrganizer" type="462c0819:PsiDirectoryNode" />
-              <item name="UnusedFiles" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InteriorRoomOrganizer" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InteriorRoomOrganizer" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lidar-scanner" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lidar-scanner" type="462c0819:PsiDirectoryNode" />
+              <item name="FinalProjectLidar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InteriorRoomOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lidar-scanner" type="462c0819:PsiDirectoryNode" />
+              <item name="FinalProjectLidar" type="462c0819:PsiDirectoryNode" />
+              <item name="FinalProjectLidar" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -163,11 +215,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../GitHub/lidar-scanner" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="web.server" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Stuff\Computer Science\Projects\InteriorRoomOrganizer\Interface" />
+      <recent name="C:\Stuff\Computer Science\Projects\InteriorRoomOrganizer" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Stuff\Computer Science\Projects\InteriorRoomOrganizer" />
     </key>
@@ -184,7 +241,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.server (2)">
+    <configuration name="anothertest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="InteriorRoomOrganizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/UnusedFiles" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UnusedFiles/anothertest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="InteriorRoomOrganizer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -207,7 +286,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="server (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="InteriorRoomOrganizer" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -220,7 +299,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UnusedFiles/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UnusedFiles/server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -229,7 +308,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="testing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="server (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="InteriorRoomOrganizer" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -237,12 +316,34 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/UnusedFiles" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Interface" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UnusedFiles/testing.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Interface/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="InteriorRoomOrganizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Interface" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Stuff\Computer Science\Projects\InteriorRoomOrganizer\Interface\server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -253,9 +354,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.server (2)" />
+        <item itemvalue="Python.server (1)" />
+        <item itemvalue="Python.server" />
+        <item itemvalue="Python.anothertest" />
         <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.testing" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -271,23 +374,27 @@
       <updated>1560994534861</updated>
       <workItem from="1560994557844" duration="6710000" />
       <workItem from="1561058499241" duration="9580000" />
-      <workItem from="1561084578825" duration="817000" />
+      <workItem from="1561084578825" duration="879000" />
+      <workItem from="1561085678498" duration="3291000" />
+      <workItem from="1561150037953" duration="860000" />
+      <workItem from="1561476793861" duration="27125000" />
+      <workItem from="1561603888547" duration="6054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17107000" />
+    <option name="totallyTimeSpent" value="54499000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1417004" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22510122" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32867134" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.897166" visible="true" weight="0.32867134" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3986014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -295,30 +402,20 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.10283401" side_tool="true" visible="true" weight="0.32867134" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32955465" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UnusedFiles/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -339,16 +436,6 @@
           <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/Model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="95" column="25" lean-forward="true" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -381,39 +468,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/main.py">
+    <entry file="file://$PROJECT_DIR$/Interface/Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/MyApp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        <state relative-caret-position="487">
+          <caret line="76" column="16" selection-start-line="76" selection-start-column="16" selection-end-line="76" selection-end-column="16" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/MyFrame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/MyCanvas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -425,10 +485,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/main.py" />
+    <entry file="file://$PROJECT_DIR$/UnusedFiles/anothertest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UnusedFiles/testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2278">
+        <state relative-caret-position="322">
           <caret line="135" selection-start-line="135" selection-end-line="135" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/asyncio/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="591" selection-start-line="591" selection-end-line="591" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/websockets/py35/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/asyncio/base_events.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-150">
+          <caret line="1374" selection-start-line="1374" selection-end-line="1374" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/websockets/py35/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="27" lean-forward="true" selection-start-column="27" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UnusedFiles/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/main_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/MyCanvas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1087">
+          <caret line="73" column="8" lean-forward="true" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/MyFrame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/MyApp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -437,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interface/MyPanel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="180">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

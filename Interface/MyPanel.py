@@ -1,5 +1,6 @@
 import wx
 from Interface.MyCanvas import MyCanvas
+import websockets
 
 
 class MyPanel(wx.Panel):
@@ -8,6 +9,8 @@ class MyPanel(wx.Panel):
         self.SetBackgroundColour("#252525")
 
         self.canvas = MyCanvas(self)
+
+        self.is_scanning = False
 
         self.btn_scan = wx.Button(self, -1, label ="New Scan", pos=(850, 100), size=(135, 50))
         self.btn_scan.SetBackgroundColour("#b5d374")
@@ -27,10 +30,24 @@ class MyPanel(wx.Panel):
         self.Bind(wx.EVT_BUTTON,self.import_func, self.btn_import)
 
     def scan_func(self, event):
-        print("scan ")
+
+        self.is_scanning = True
 
     def load_func(self, event):
-        print("load")
+
+        with wx.FileDialog(self, "Load existing design", wildcard="OBJ files (*.jpg)|*.jpg",
+                           style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST) as fileDialog:
+
+            if fileDialog.ShowModal() == wx.ID_CANCEL:
+                return  # the user changed their mind
+
+            # Proceed loading the file chosen by the user
+            pathname = fileDialog.GetPath()
+            try:
+                with open(pathname, 'r') as file:
+                    print("Hey")
+            except IOError:
+                wx.LogError("Cannot open file '%s'." % file)
 
     def save_func(self, event):
 
@@ -66,4 +83,7 @@ class MyPanel(wx.Panel):
                 wx.LogError("Cannot open file '%s'." % file)
 
     def add_furniture_func(self,event):
-        print("add")
+
+        with wx.Dialog(self, title = "Choose", size = (400,400)) as dialog:
+            dialog.ShowModal()
+            button = wx.Button(dialog, -1, label ="ABC", size = (100,100), pos = (200,200))
