@@ -2,11 +2,11 @@ import wx
 from wx.glcanvas import GLCanvas, GLContext
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from Interface.Room import Room
 from Interface.Furniture import Furniture
 from Interface.InputManager import InputManager
 from Interface.Camera import *
-import asyncio
+from Interface.Room import Room
+
 
 class MyCanvas(GLCanvas):
 
@@ -19,14 +19,14 @@ class MyCanvas(GLCanvas):
         self.SetCurrent(self.context)
 
         # init objects
-        self.room = Room("..\\Models\\rooms\\3.txt")
+        self.room = Room("..\\res\\Models\\rooms\\3.room")
         self.furniture = Furniture()
         self.camera = Camera()
         self.input = InputManager(850, 700, self.room, self.furniture, self.camera)
 
         # init canvas
         glClearColor(0.0, 0.0, 0.0, 0.0)
-        glClearDepth(1)
+        # glClearDepth(1)
         glEnable(GL_DEPTH_TEST)
         glDepthFunc(GL_LESS)
 
@@ -44,18 +44,14 @@ class MyCanvas(GLCanvas):
         self.Refresh()
 
     def paint(self, event):
-
-        #wx.PaintDC(self)
         self.display()
-        #self.Refresh()
 
     def display(self):
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        size = self.GetClientSize()
-        glTranslatef(0.0, -size[1]/3, -2000)
+        glTranslatef(0.0, 0, -100.0)
 
         self.camera.update_position()
         self.furniture.update_position()
@@ -69,7 +65,9 @@ class MyCanvas(GLCanvas):
         glPushMatrix()
         glTranslatef(self.furniture.xPosition, self.furniture.yPosition, self.furniture.zPosition)
         glRotatef(self.furniture.yawSpinAngle, 0, True, 0)
+
         self.furniture.draw()
+
         glPopMatrix()
         glPopMatrix()
 
@@ -81,4 +79,4 @@ class MyCanvas(GLCanvas):
         glViewport(0, 0, size.width, size.height)
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-        gluPerspective(45.0, float(size[0])/float(size[1]), 0.1, 4000.0)
+        gluPerspective(45.0, float(size.width)/float(size.height), 0.1, 4000.0)

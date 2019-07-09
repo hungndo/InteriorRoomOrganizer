@@ -36,29 +36,10 @@ async def message():
                         # socket = await websockets.connect("ws://192.168.137.60:1234")
                         # print(socket)
 
-# async def start_scanning():
-#     #
-#     # if main_interface.app.frame.panel.is_scanning == 'False':
-#     #     print("here")
-#     #     # await websockets.send()
-#     #     # main_interface.app.frame.panel.stop_scanning()
-#     await asyncio.sleep(1)
-#     print("hi")
-
-# server = None
-
-
-# async def start_server():
-#     global server
-#     server = websockets.serve(response, '192.168.137.1', 1234)
-#     # asyncio.get_event_loop().run_until_complete(server)
-#     # asyncio.get_event_loop().run_forever()
-#
-
 if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
-    group = asyncio.gather(message(), app.MainLoop())
+    group = asyncio.gather(app.MainLoop())#,message())
 
     loop.run_until_complete(group)
     loop.run_forever()

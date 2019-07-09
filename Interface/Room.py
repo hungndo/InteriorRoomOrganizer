@@ -1,38 +1,65 @@
 from Interface.Model import Model
-# from Interface.InputManager import *
+import cv2
+import numpy
 
 
 class Room(Model):
 
-    def __init__(self, coordinates_file):
+    def __init__(self, file):
         
         Model.__init__(self)
-        self.read_data_from_file(coordinates_file)
+
+        self.vertices = []
+        self.textures = []
+        self.normals = []
+        self.indices = []
+
+        self.texture_data = []
+        self.texture_size = (400, 400)
+
+        self.read_model(file)
+
+    def read_model(self, file):
+
+        # read texture
+        image = cv2.imread("../res/Models/rooms/3.png", cv2.IMREAD_UNCHANGED)
+        # image = cv2.flip(image, 0)
+        image = cv2.cvtColor(image, cv2.COLOR_BGRA2RGBA)
+
+        # cv2.imshow("f", image)
+        for v in range(self.texture_size[1]):
+            for u in range(self.texture_size[0]):
+                self.texture_data.append(image[u, v])
+
+        self.texture_data = numpy.array(self.texture_data, numpy.uint8)
+
+        # read room
+        self.read_room_file(file)
+
         self.create_vertex_indices_list()
 
-    def read_data_from_file(self, coordinates_file):
+    def read_room_file(self, coordinates_file):
         print('Reading ' + coordinates_file)
 
-        file = open(coordinates_file, "r")
+        with open(coordinates_file, "r") as file:
+            for line in file:
+                if not (line.startswith('f') or line.startswith('vn') or line.startswith('vt') or line.startswith('v')):
+                        continue
 
-        for line in file:
-            split_line = line.split()
+                elif line.startswith('v') and (not (line.startswith('vt') or (line.startswith('vn')))):
+                    tmp = line.split()
+                    self.vertices.extend(list(map(float, tmp[1:4])))
 
-            self.vertices.append(float(split_line[0]))
-            self.vertices.append(-float(split_line[2]))
-            self.vertices.append(float(split_line[1]))
+                elif line.startswith('vt'):
+                    tmp = line.split()
+                    self.textures.extend(list(map(float, tmp[1:3])))
 
-            self.colors.append(float(split_line[4])/256)
-            self.colors.append(float(split_line[5])/256)
-            self.colors.append(float(split_line[6])/256)
-
-        file.close()
+                elif line.startswith('vn'):
+                    tmp = line.split()
+                    self.normals.extend(list(map(float, tmp[1:4])))
 
     def create_vertex_indices_list(self):
 
         for i in range(len(self.vertices)):
             for j in range(3):
                 self.indices.append(i + j)
-
-
-
