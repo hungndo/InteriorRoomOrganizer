@@ -1,6 +1,7 @@
 import wx
 from Interface.MyCanvas import MyCanvas
-import websockets
+import os
+import cv2
 
 
 class MyPanel(wx.Panel):
@@ -35,7 +36,7 @@ class MyPanel(wx.Panel):
 
     def load_func(self, event):
 
-        with wx.FileDialog(self, "Load existing design", wildcard="OBJ files (*.jpg)|*.jpg",
+        with wx.FileDialog(self, "Load existing design",
                            style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST) as fileDialog:
 
             if fileDialog.ShowModal() == wx.ID_CANCEL:
@@ -68,19 +69,72 @@ class MyPanel(wx.Panel):
 
     def import_func(self, event):
 
-        with wx.FileDialog(self, "Import Furniture", wildcard="OBJ files (*.jpg)|*.jpg",
-                           style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST) as fileDialog:
+        with wx.FileDialog(self, "Import Furniture", style=wx.FD_OPEN | wx.FD_MULTIPLE) as fileDialog:
 
+            # Check if the users changed their minds
             if fileDialog.ShowModal() == wx.ID_CANCEL:
-                return  # the user changed their mind
+                return
 
-            # Proceed loading the file chosen by the user
-            pathname = fileDialog.GetPath()
+            # Check if user choose one obj and one png file as required
             try:
-                with open(pathname, 'r') as file:
-                    print("Hey")
-            except IOError:
-                wx.LogError("Cannot open file '%s'." % file)
+                read_files = fileDialog.GetPaths()
+                if not(len(read_files) == 2):
+                    raise IOError('You need two load one obj file and one png file.')
+                else:
+                    if read_files[0].endswith('png') or read_files[0].endswith('jpg'):
+                        if not read_files[1].endswith('obj'):
+                            raise IOError('You need two load one obj file and one png file.')
+
+                    elif read_files[0].endswith('obj'):
+                        if not (read_files[1].endswith('png') or read_files[1].endswith('jpg')):
+                            raise IOError('You need two load one obj file and one png file.')
+
+                    else:
+                        raise IOError('You need two load one obj file and one png file.')
+
+                # create a new directory for the new furniture
+                with wx.TextEntryDialog(self, 'Model name','Enter the name of your new model',) as textDialog:
+
+                    if textDialog.ShowModal() == wx.CANCEL:
+                        return
+
+                    else:
+                        name = textDialog.GetValue()
+                        if not os.path.exists(f'../res/Models/furniture/{name}'):
+                            os.mkdir(f'../res/Models/furniture/{name}')
+
+                # copy selected files to the new folder
+                obj_file = f'../res/Models/furniture/{name}/{name}.obj'
+                png_file = f'../res/Models/furniture/{name}/{name}.png'
+                if read_files[0].endswith('obj'):
+
+                    # copy obj file
+                    with open(read_files[0], 'r') as readfile:
+                        with open(obj_file, 'w') as writefile:
+                            writefile.writelines(readfile.read())
+
+                    # copy png file
+                    img = cv2.imread(read_files[1], cv2.IMREAD_UNCHANGED)
+                    read_files[1] = cv2.imwrite(png_file, img)
+
+                else:
+                    print('here')
+                    # copy png file
+                    img = cv2.imread(read_files[1], cv2.IMREAD_UNCHANGED)
+                    read_files[1] = cv2.imwrite(png_file, img)
+
+                    # copy obj file
+                    with open(read_files[1], 'r') as readfile:
+                        with open(obj_file, 'w') as writefile:
+                            writefile.writelines(readfile.read())
+
+            except IOError as e:
+                wx.LogError(str(e))
+                return
+
+            except OSError as e:
+                wx.LogError(str(e))
+                return
 
     def add_furniture_func(self,event):
 
