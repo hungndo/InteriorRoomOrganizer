@@ -2,31 +2,35 @@ from Interface.Model import Model
 from Interface.Transform import Transform
 import numpy
 import cv2
+import os
 
 
 class Furniture(Model, Transform):
 
-    def __init__(self):
+    def __init__(self, texture_file, obj_file):
 
         Model.__init__(self)
         Transform.__init__(self)
 
+        self.being_shown = False
+
         self.ROTATE_SPEED = 0.3
 
-        self.vertices = []
-        self.textures = []
-        self.normals = []
+        self.vertex_coords = []
+        self.texture_coords = []
+        self.normal_coords = []
         self.indices = []
 
         self.texture_data = []
-        self.texture_size = (256, 256)
+        self.texture_size = ()
 
-        self.read_model()
+        self.read_model(texture_file, obj_file)
 
-    def read_model(self):
+    def read_model(self, texture_file, obj_file):
 
         # read texture
-        image = cv2.imread("../res/stallTexture.png", cv2.IMREAD_UNCHANGED)
+        image = cv2.imread(texture_file, cv2.IMREAD_UNCHANGED)
+        self.texture_size = image.shape
         image = cv2.flip(image, 0)
         image = cv2.cvtColor(image, cv2.COLOR_BGRA2RGBA)
 
@@ -36,16 +40,16 @@ class Furniture(Model, Transform):
 
         self.texture_data = numpy.array(self.texture_data, numpy.uint8)
         # read obj
-        self.read_obj_file()
+        self.read_obj_file(obj_file)
 
-    def read_obj_file(self):
+    def read_obj_file(self, obj_file):
 
         tmp_vertices = []
         tmp_textures = []
         tmp_normals = []
         index_count = 0
 
-        with open("../res/stall.obj", 'r') as file:
+        with open(obj_file, 'r') as file:
             for line in file:
                 if not (line.startswith('f') or line.startswith('vn') or line.startswith('vt') or line.startswith('v')):
                     continue
@@ -76,9 +80,51 @@ class Furniture(Model, Transform):
 
         # each indices is subtracted by 1 because obj format counts from 1
 
-        self.vertices.extend(tmp_vertices[vertex[0]-1])
-        self.textures.extend(tmp_textures[vertex[1]-1])
-        self.normals.extend(tmp_normals[vertex[2]-1])
+        self.vertex_coords.extend(tmp_vertices[vertex[0]-1])
+        self.texture_coords.extend(tmp_textures[vertex[1]-1])
+        self.normal_coords.extend(tmp_normals[vertex[2]-1])
+
+    @staticmethod
+    def save_imported_furniture(read_files, name):
+
+        if not os.path.exists(f'../res/Models/furniture/{name}'):
+            os.mkdir(f'../res/Models/furniture/{name}')
+
+        # copy selected files to the new folder
+
+        obj_file = f'../res/Models/furniture/{name}/{name}.obj'
+        png_file = f'../res/Models/furniture/{name}/{name}.png'
+
+        try:
+            if read_files[0].endswith('obj'):
+
+                # copy obj file
+                with open(read_files[0], 'r') as readfile:
+                    with open(obj_file, 'w') as writefile:
+                        writefile.writelines(readfile.read())
+
+                # copy png file
+                img = cv2.imread(read_files[1], cv2.IMREAD_UNCHANGED)
+                cv2.imwrite(png_file, img)
+
+            else:
+                # copy png file
+                img = cv2.imread(read_files[1], cv2.IMREAD_UNCHANGED)
+                cv2.imwrite(png_file, img)
+
+                # copy obj file
+                with open(read_files[1], 'r') as readfile:
+                    with open(obj_file, 'w') as writefile:
+                        writefile.writelines(readfile.read())
+
+        except IOError as e:
+            print(e)
+
+    def show(self, state):
+        self.being_shown = state
+
+    def is_shown(self):
+        return self.being_shown
 
     def move_left(self, moving_speed):
         self.moving_speed = moving_speed

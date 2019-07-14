@@ -4,6 +4,7 @@ import numpy
 import cv2
 import os
 
+
 class Model:
 
     def __init__(self):
@@ -137,31 +138,18 @@ class Model:
     def read_model(self):
         pass
 
-    def update_model_data(self, new_vertex_coord, new_texture_coord, new_texture_data, new_normal_coord, new_indices):
+    def update_model_data(self, new_vertex_coord, new_texture_coord, new_texture_data, new_normal_coord):
 
-        self.vertices.extend(new_vertex_coord)
-        self.texture_coords.extend(new_texture_coord)
-        self.normal_coords.extend(new_normal_coord)
-        self.texture_data.append(new_texture_data)
+        self.vertices.extend(list(map(float, new_vertex_coord)))
+        self.texture_coords.extend(list(map(float, new_texture_coord)))
+        self.normal_coords.extend(list(map(float, new_normal_coord)))
+        self.texture_data.append(list(map(float, new_texture_data)))
         new_index = len(self.indices)
         self.indices.extend([self.indices[new_index-2], self.indices[new_index-1], new_index])
         self.update_awaiting = True
 
-    def save_scanned_room(self, room_name, vertex_coords, texture_coords, normal_coords, texture_data):
-
-        try:
-
-            # copy selected files to the new folder
-            room_file = f'../res/Models/rooms/{room_name}/{room_name}.room'
-            png_file = f'../res/Models/rooms/{room_name}/{room_name}.png'
-            self.create_png_image(png_file, texture_data)
-            self.create_room_file(room_file, vertex_coords, texture_coords, normal_coords)
-
-        except IOError as e:
-            print(e)
-
     @staticmethod
-    def create_png_image(png_file, texture_data):
+    def create_png_image( png_file, texture_data):
         height, width = 400, 400
         img = numpy.zeros((height, width, 4), numpy.uint8)
 
@@ -187,3 +175,7 @@ class Model:
 
             for index in range(0, len(normal_coords), 3):
                 f.write(" ".join(['vn', *normal_coords[index:index+3]]) + '\n')
+
+    def __delete__(self, instance):
+        glDeleteBuffers(4,self.buffer)
+        glDeleteBuffers(1,self.texture_buffer)

@@ -23,8 +23,14 @@ async def message():
                     try:
                         tmp = await socket.recv()
                         if tmp != 'False':
-                            # do stuffs in here
-                            print(await socket.recv())
+
+                            data = await socket.recv()
+                            data = data.split()
+                            app.update_data((data[0], data[1], data[2]),     # vertex_coord
+                                            (data[3], data[4]),             # texture_coord
+                                            (data[5], data[6], data[7]),    # texture_data
+                                            (data[8], data[9], data[10])    # normal_coord
+                                            )
 
                         else:
                             is_scanning = tmp
@@ -35,6 +41,9 @@ async def message():
                         # print('Reconnecting')
                         # socket = await websockets.connect("ws://192.168.137.60:1234")
                         # print(socket)
+
+                    # finish scanning and save newly scanned room
+                    app.finish_scanning()
 
 if __name__ == "__main__":
 

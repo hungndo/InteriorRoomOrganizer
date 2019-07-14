@@ -6,6 +6,7 @@ from Interface.Furniture import Furniture
 from Interface.InputManager import InputManager
 from Interface.Camera import *
 from Interface.Room import Room
+import os
 
 
 class MyCanvas(GLCanvas):
@@ -19,13 +20,28 @@ class MyCanvas(GLCanvas):
         self.SetCurrent(self.context)
 
         # init objects
-        self.room = Room("..\\res\\Models\\rooms\\3.room")
-        self.furniture = Furniture()
+        self.room_directories = {}
+        self.current_room_name = 'Nothing'
+        self.room = None
+        self.furniture = {}
         self.camera = Camera()
         self.input = InputManager(850, 700, self.room, self.furniture, self.camera)
 
+        # load rooms and furniture
+
+        for root, directory, file in os.walk('../res/Models/rooms'):
+            if len(file) == 2:
+                png, room = (os.path.join(root, x) for x in file)
+                self.add_room_directory(png, room, file[0].split('.')[0])
+
+        for root, directory, file in os.walk('../res/Models/furniture'):
+            if len(file) == 2:
+                obj, png = (os.path.join(root, x) for x in file)
+                self.add_furniture(png, obj, file[0].split('.')[0])
+
         # init canvas
-        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glClearColor(42/256, 49/256, 50/256, 0.8)
+        # glClearColor(45/256,48/256,51/256,0.8)
         # glClearDepth(1)
         glEnable(GL_DEPTH_TEST)
         glDepthFunc(GL_LESS)
@@ -51,25 +67,31 @@ class MyCanvas(GLCanvas):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        glTranslatef(0.0, 0, -100.0)
+        glTranslatef(0.0, 0, -3.0)
 
         self.camera.update_position()
-        self.furniture.update_position()
+        for x in self.furniture:
+            self.furniture[x].update_position()
 
         # draw block in coordinate of the room
-        glPushMatrix()
+        # glPushMatrix()
         glTranslatef(self.camera.xPosition, self.camera.yPosition, self.camera.zPosition)
         glRotatef(self.camera.yawSpinAngle, 0, True, 0)
-        self.room.draw()
 
-        glPushMatrix()
-        glTranslatef(self.furniture.xPosition, self.furniture.yPosition, self.furniture.zPosition)
-        glRotatef(self.furniture.yawSpinAngle, 0, True, 0)
+        if not self.current_room_name == 'Nothing':
+            self.room.draw()
 
-        self.furniture.draw()
+        for x in self.furniture:
+            if self.furniture[x].is_shown():
+                # glPushMatrix()
+                glTranslatef(self.furniture[x].xPosition, self.furniture[x].yPosition, self.furniture[x].zPosition)
+                glRotatef(self.furniture[x].yawSpinAngle, 0, True, 0)
 
-        glPopMatrix()
-        glPopMatrix()
+                self.furniture[x].draw()
+
+                # glPopMatrix()
+
+        # glPopMatrix()
 
         self.SwapBuffers()
 
@@ -80,3 +102,27 @@ class MyCanvas(GLCanvas):
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
         gluPerspective(45.0, float(size.width)/float(size.height), 0.1, 4000.0)
+
+    # i combine png and room files into one string separated by '*'
+    def change_room(self, room_name, is_scanning=False):
+
+        del self.room
+
+        if not room_name == 'Nothing':
+            png_file, room_file = self.room_directories[room_name].split('*')
+            self.room = Room(png_file, room_file, is_scanning)
+
+        else:
+            self.room = None
+
+        self.current_room_name = room_name
+
+    def add_room_directory(self, png_file, room_file, room_name):
+        dirs = '*'.join([png_file,room_file])
+        self.room_directories.update({room_name: dirs})
+
+    def create_a_scanning_room(self):
+        self.room = Room(new_scan=True)
+
+    def add_furniture(self, png_file, obj_file, furniture_name):
+        self.furniture.update({furniture_name: Furniture(png_file, obj_file)})

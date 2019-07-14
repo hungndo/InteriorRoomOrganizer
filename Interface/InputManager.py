@@ -3,14 +3,19 @@ from OpenGL.GLUT import *
 
 class InputManager:
 
-    def __init__(self, x, y, room, object_list, camera):
+    def __init__(self, x, y, room, object_dict, camera):
 
         self.room = room
-        self.object_list = object_list
+        self.object_dict = object_dict
         self.camera = camera
 
         self.OFFSET_TO_CHANGE_ANGLE = 100
+        self.OFFSET_TO_STOP_CHANGING_ANGLE = 30
         self.CANVAS_DIMENSIONS = (x, y)
+
+        # if there is no obj in obj_dict, there is no current moving obj
+        # if there is one or more obj, the current moving obj is the first one
+        self.current_obj_key = None
 
     def keyboard(self, *args):
 
@@ -24,23 +29,24 @@ class InputManager:
         if key == 'S':
             self.camera.move_outward()
 
-        if key == 'U':
-            self.object_list.move_up(1)
-        if key == 'O':
-            self.object_list.move_down(1)
-        if key == 'J':
-            self.object_list.move_left(1)
-        if key == 'L':
-            self.object_list.move_right(1)
-        if key == 'I':
-            self.object_list.move_inward(1)
-        if key == 'K':
-            self.object_list.move_outward(1)
-        if key == 'M':
-            self.object_list.yaw_left()
-        if key == ',':
-            self.object_list.yaw_right()
+        if not self.current_obj_key is None:
 
+            if key == 'U':
+                self.object_dict[self.current_obj_key].move_up(1)
+            if key == 'O':
+                self.object_dict[self.current_obj_key].move_down(1)
+            if key == 'J':
+                self.object_dict[self.current_obj_key].move_left(1)
+            if key == 'L':
+                self.object_dict[self.current_obj_key].move_right(1)
+            if key == 'I':
+                self.object_dict[self.current_obj_key].move_inward(1)
+            if key == 'K':
+                self.object_dict[self.current_obj_key].move_outward(1)
+            if key == 'M':
+                self.object_dict[self.current_obj_key].yaw_left()
+            if key == ',':
+                self.object_dict[self.current_obj_key].yaw_right()
 
     def keyboard_up(self, *args):
 
@@ -51,23 +57,34 @@ class InputManager:
         if key == 'W' or key == 'S':
             self.camera.stop_moving_in_z_direction()
 
-        if key == 'U' or key == 'O':
-            self.object_list.stop_moving_in_y_direction()
-        if key == 'J' or key == 'L':
-            self.object_list.stop_moving_in_x_direction()
-        if key == 'I' or key == 'K':
-            self.object_list.stop_moving_in_z_direction()
-        if key == 'M' or key == ',':
-            self.object_list.stop_yawing()
+        # if there is object to move
+        if not self.current_obj_key is None:
+
+            if key == 'U' or key == 'O':
+                self.object_dict[self.current_obj_key].stop_moving_in_y_direction()
+            if key == 'J' or key == 'L':
+                self.object_dict[self.current_obj_key].stop_moving_in_x_direction()
+            if key == 'I' or key == 'K':
+                self.object_dict[self.current_obj_key].stop_moving_in_z_direction()
+            if key == 'M' or key == ',':
+                self.object_dict[self.current_obj_key].stop_yawing()
 
     def mouse_passive_motion(self, *args):
 
         mouse_position = args[0].GetPosition()
         # rotate left
-        if mouse_position[0] < self.OFFSET_TO_CHANGE_ANGLE:
+        if self.OFFSET_TO_STOP_CHANGING_ANGLE < mouse_position[0] < self.OFFSET_TO_CHANGE_ANGLE:
             self.camera.yaw_left()
         # rotate right
-        elif self.CANVAS_DIMENSIONS[0] - 5 > mouse_position[0] > self.CANVAS_DIMENSIONS[0]-self.OFFSET_TO_CHANGE_ANGLE:
+        elif self.CANVAS_DIMENSIONS[0] - self.OFFSET_TO_STOP_CHANGING_ANGLE > mouse_position[0] \
+                > self.CANVAS_DIMENSIONS[0]-self.OFFSET_TO_CHANGE_ANGLE:
             self.camera.yaw_right()
         else:
             self.camera.stop_yawing()
+
+    def set_current_moving_object(self, object_key):
+
+        if object_key == 'Nothing':
+            self.current_obj_key = None
+        else:
+            self.current_obj_key = object_key
