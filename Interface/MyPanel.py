@@ -3,6 +3,7 @@ from Interface.MyCanvas import MyCanvas
 from Interface.Furniture import Furniture
 from Interface.MyCheckBoxDialog import MyCheckBoxDialog
 from Interface.MyRadioDialog import MyRadioDialog
+import os
 
 
 class MyPanel(wx.Panel):
@@ -67,10 +68,38 @@ class MyPanel(wx.Panel):
 
             if dialog.ShowModal() == wx.ID_OK:
                 self.canvas.change_room(dialog.get_selected_option(), False)
+        else:
+            wx.LogError("You can't load another room when scanning")
 
     def save_func(self, event):
         # TODO save a design and prevent users from saving a new design while scanning
-        pass
+        if not self.is_scanning:
+            with wx.TextEntryDialog(self, 'New Design', 'Enter the name of your Design', ) as textDialog:
+
+                if textDialog.ShowModal() == wx.CANCEL:
+                    return
+
+                else:
+                    design_name = textDialog.GetValue()
+                    if not os.path.exists(f'../res/Design{design_name}'):
+                        os.mkdir(f'../res/Design{design_name}')
+
+                    with open(f'../res/Design/{design_name}.design', 'w') as file:
+
+                        # save room name
+                        file.write('room ' + self.canvas.current_room_name+ '\n')
+
+                        used_furniture = [x for x in self.canvas.furniture if self.canvas.furniture[x].being_shown]
+                        for i in used_furniture:
+                            file.write(f'furniture {i} '                            # name 
+                                       f'{self.canvas.furniture[i].xPosition} '     # x
+                                       f'{self.canvas.furniture[i].yPosition} '     # y
+                                       f'{self.canvas.furniture[i].zPosition} '     # z
+                                       f'{self.canvas.furniture[i].yawSpinAngle} '  # yaw
+                                       f'{self.canvas.furniture[i].scale}\n')       # scale
+
+        else:
+            wx.LogError("You can't save a design when scanning")
 
     def finish_scanning(self):
 
