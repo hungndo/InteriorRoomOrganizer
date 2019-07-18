@@ -1,6 +1,6 @@
 import asyncio
-import websockets
 from Interface.MyApp import MyApp
+import socket
 
 app = MyApp()
 
@@ -12,43 +12,54 @@ async def message():
         is_scanning = await app.is_scanning()
         if is_scanning == 'True':
 
-            async with websockets.connect("ws://192.168.137.60:1234") as socket:
+            # set up client and connect to server
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect(('192.168.137.175', 1234))
+            s.send(b'True')
+            await asyncio.sleep(0.00001)
 
-                # activate the loop in server
-                await socket.send('True')
+            # collect data
+            count = 0
+            while is_scanning == 'True':
 
-                # collect data
-                while is_scanning == 'True':
+                try:
 
-                    try:
-                        tmp = await socket.recv()
-                        if tmp != 'False':
+                    data_list = s.recv(1024).decode('utf-8').split()
+                    await asyncio.sleep(0.00001)
 
-                            data = await socket.recv()
-                            data = data.split()
-                            app.update_data((data[0], data[1], data[2]),     # vertex_coord
-                                            (data[3], data[4]),             # texture_coord
-                                            (data[5], data[6], data[7]),    # texture_data
-                                            (data[8], data[9], data[10])    # normal_coord
-                                            )
+                    for data in data_list:
+                        count += 1
+                        print('Here ' + str(count))
 
+                        if data != 'False':
+
+                                # data = data.split()
+                                # app.update_data((data[0], data[1], data[2]),     # vertex_coord
+                                #                 (data[3], data[4]),             # texture_coord
+                                #                 (data[5], data[6], data[7]),    # texture_data
+                                #                 (data[8], data[9], data[10])    # normal_coord
+                                #                 )
+
+                                print(data)
                         else:
-                            is_scanning = tmp
+                            is_scanning = data
+                            print('DONE SCANNING')
                             break
-                    except:
 
-                        break
-                        # print('Reconnecting')
-                        # socket = await websockets.connect("ws://192.168.137.60:1234")
-                        # print(socket)
+                except ConnectionError:
 
-                    # finish scanning and save newly scanned room
-                    app.finish_scanning()
+                    print('Reconnecting')
+                    s.connect(('192.168.137.175', 1234))
+                    s.send(b'True')
+
+            # finish scanning and save newly scanned room
+            s.close()
+            app.finish_scanning()
 
 if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
-    group = asyncio.gather(app.MainLoop())#,message())
+    group = asyncio.gather(app.MainLoop(),message())
 
     loop.run_until_complete(group)
     loop.run_forever()

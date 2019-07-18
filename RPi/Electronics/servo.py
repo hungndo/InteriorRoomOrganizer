@@ -1,83 +1,54 @@
 import RPi.GPIO as GPIO
 import time
 
-hservo = 13
-vservo = 11
 
-PITCH_MIN_DUTY_CYCLE = 2.55
-YAW_MIN_DUTY_CYCLE = 2.57
-PITCH_MAX_DUTY_CYCLE = 11.8
-YAW_MAX_DUTY_CYCLE = 11.9
+class Servo:
 
-PERIOD_PER_PITCH_ANGLE = (PITCH_MAX_DUTY_CYCLE - PITCH_MIN_DUTY_CYCLE) / 180
-PERIOD_PER_YAW_ANGLE = (YAW_MAX_DUTY_CYCLE - YAW_MIN_DUTY_CYCLE) / 180
+    def __init__(self, pin):
 
-pitch_period = PITCH_MIN_DUTY_CYCLE
-yaw_period = YAW_MIN_DUTY_CYCLE
+        self.pin = pin
 
-GPIO.setmode(GPIO.BOARD)
+        self.MIN_DUTY_CYCLE = 2.57
+        self.MAX_DUTY_CYCLE = 11.8
 
-GPIO.setup(vservo, GPIO.OUT)
-pitch = GPIO.PWM(vservo, 50)
+        self.PERIOD_PER_ANGLE = (self.MAX_DUTY_CYCLE - self.MIN_DUTY_CYCLE) / 180
 
-GPIO.setup(hservo, GPIO.OUT)
-yaw = GPIO.PWM(hservo, 50)
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(self.pin, GPIO.OUT)
+        self.pitch = GPIO.PWM(self.pin, 50)
 
-pitch_angle = 0
-yaw_angle = 0
+        self.current_angle = 0
+        self.current_period = self.MIN_DUTY_CYCLE
 
-def reset():
+    def set_period(self, dc):
 
-	pitch.start(PITCH_MIN_DUTY_CYCLE)
-	yaw.start(YAW_MIN_DUTY_CYCLE)
-	time.sleep(1)
+        self.pitch.start(dc)
+        time.sleep(1)
 
+    def turn(self, delta_angle):
 
-def turn_pitch(counterclockwise, delta):
-    # counterclockwise can only have value 1, -1
-    # 1 = up, -1 = down
+        #	positive -> up , right
+        #	negative -> down, left
 
-    global pitch_period, pitch
+        delta_period = delta_angle * self.PERIOD_PER_ANGLE
 
-    if (pitch_period + counterclockwise * delta) > PITCH_MAX_DUTY_CYCLE:
+        if (self.current_period + delta_period) > self.MAX_DUTY_CYCLE:
 
-        pitch_period = PITCH_MAX_DUTY_CYCLE
-        pitch.ChangeDutyCycle(pitch_period)
+            self.current_period = self.MAX_DUTY_CYCLE
+            self.pitch.ChangeDutyCycle(self.current_period)
 
-    elif (pitch_period + counterclockwise * delta) < PITCH_MIN_DUTY_CYCLE:
+        elif (self.current_period + delta_period) < self.MIN_DUTY_CYCLE:
 
-        pitch_period = PITCH_MIN_DUTY_CYCLE
-        pitch.ChangeDutyCycle(pitch_period)
+            self.current_period = self.MIN_DUTY_CYCLE
+            self.pitch.ChangeDutyCycle(self.current_period)
 
-    else:
+        else:
 
-        pitch_period += counterclockwise * delta
-        pitch.ChangeDutyCycle(pitch_period)
+            self.current_period += delta_period
+            self.pitch.ChangeDutyCycle(self.current_period)
 
-    time.sleep(0.005)
-    #print("PITCH: " + str(pitch_period) + " " + str((pitch_period - PITCH_MIN_DUTY_CYCLE) / PERIOD_PER_PITCH_ANGLE))
+        time.sleep(0.005)
 
-
-def turn_yaw(counterclockwise, delta):
-    # counterclockwise can only have value 1, -1
-    # 1 = counterclockwise, -1 = clockwise
-
-    global yaw_period, yaw
-
-    if (yaw_period + (-counterclockwise * delta)) > YAW_MAX_DUTY_CYCLE:
-
-        yaw_period = YAW_MAX_DUTY_CYCLE
-        yaw.ChangeDutyCycle(yaw_period)
-
-    elif (yaw_period + (-counterclockwise * delta)) < YAW_MIN_DUTY_CYCLE:
-
-        yaw_period = YAW_MIN_DUTY_CYCLE
-        yaw.ChangeDutyCycle(yaw_period)
-
-    else:
-
-        yaw_period += -counterclockwise * delta
-        yaw.ChangeDutyCycle(yaw_period)
-
-    time.sleep(0.005)
-    #print("YAW: " + str(yaw_period) + " " + str((yaw_period - YAW_MIN_DUTY_CYCLE) / PERIOD_PER_YAW_ANGLE))
+    def reset(self):
+        self.current_period = self.MIN_DUTY_CYCLE
+        self.current_angle = 0
