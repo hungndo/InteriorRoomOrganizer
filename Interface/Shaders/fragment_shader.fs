@@ -9,7 +9,7 @@ uniform sampler2D samplerTexture;
 void main()
 {
     vec3 ambientLightIntensity = vec3(0.8f, 0.8f, 0.8f);
-    vec3 sunLightIntensity = vec3(0.8f, 0.8f, 0.8f);
+    vec3 sunLightIntensity = vec3(0.0f, 0.0f, 0.0f);
     vec3 sunLightDirection = normalize(vec3(-2.0f, -2.0f, 1010.0f));
 
     vec4 textureElement = texture(samplerTexture, outTexCoords);

@@ -72,9 +72,11 @@ class Model:
         # texture_buffer
         glBindTexture(GL_TEXTURE_2D, self.texture_buffer)
 
-        # indices
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.buffer[3])
-        glDrawElements(GL_TRIANGLES, len(self.indices), GL_UNSIGNED_INT, None)
+        # # indices
+        # glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.buffer[3])
+        # glDrawElements(GL_TRIANGLES, len(self.indices), GL_UNSIGNED_INT, None)
+
+        glDrawArrays(GL_TRIANGLES, 0, len(self.indices))
 
     def update_buffers(self):
 
@@ -134,33 +136,43 @@ class Model:
         self.shader.begin()
         self.draw_vbo()
         self.shader.end()
+        # self.update_model_data((0,-1000,0),(0.03,0.0),(255,255,255,255),(0,0,0))
 
     def read_model(self):
         pass
 
     def update_model_data(self, new_vertex_coord, new_texture_coord, new_texture_data, new_normal_coord):
 
-        self.vertices.extend(list(map(float, new_vertex_coord)))
-        self.texture_coords.extend(list(map(float, new_texture_coord)))
+        self.vertex_coords.extend(list(map(float, new_vertex_coord)))
+
+        tmp = [float(new_texture_coord[0])/self.texture_size[0], float(new_texture_coord[1])/self.texture_size[1] ]
+        self.texture_coords.extend(tmp)
+
         self.normal_coords.extend(list(map(float, new_normal_coord)))
-        self.texture_data.append(list(map(float, new_texture_data)))
-        new_index = len(self.indices)
-        self.indices.extend([self.indices[new_index-2], self.indices[new_index-1], new_index])
+
+        self.texture_data[new_texture_coord[0], new_texture_coord[1]] = list(map(int, new_texture_data))
+        # print(self.indices)
+        new_index = int(len(self.vertex_coords)/3) - 1
+        if new_index < 3:
+            self.indices.append(new_index)
+        else:
+            self.indices.extend((new_index-2, new_index-1, new_index))
+
         self.update_awaiting = True
 
     @staticmethod
     def create_png_image( png_file, texture_data):
-        height, width = 400, 400
-        img = numpy.zeros((height, width, 4), numpy.uint8)
+        # height, width = 400, 400
+        # img = numpy.zeros((height, width, 4), numpy.uint8)
+        #
+        # for v in range(height):
+        #     for u in range(width):
+        #         if u+v*height < len(texture_data):
+        #             img[u][v] = texture_data[u+v*height]
+        #         else:
+        #             img[u][v] = (0, 0, 0, 255)
 
-        for v in range(height):
-            for u in range(width):
-                if u+v*height < len(texture_data):
-                    img[u][v] = x[u+v*height]
-                else:
-                    img[u][v] = (0, 0, 0, 255)
-
-        cv2.imwrite(png_file, img)
+        cv2.imwrite(png_file, texture_data)
 
     @staticmethod
     def create_room_file(room_file, vertex_coords, texture_coords, normal_coords):
@@ -168,14 +180,14 @@ class Model:
         with open(room_file, 'w') as f:
 
             for index in range(0, len(vertex_coords), 3):
-                f.write(" ".join(['v', *vertex_coords[index:index+3]]) + '\n')
+                f.write(" ".join(['v', *list(map(str, vertex_coords[index:index+3]))]) + '\n')
 
             for index in range(0, len(texture_coords), 2):
-                f.write(" ".join(['vt', *texture_coords[index:index+2]]) + '\n')
+                f.write(" ".join(['vt', *list(map(str,texture_coords[index:index+2]))]) + '\n')
 
             for index in range(0, len(normal_coords), 3):
-                f.write(" ".join(['vn', *normal_coords[index:index+3]]) + '\n')
+                f.write(" ".join(['vn', *list(map(str,normal_coords[index:index+3]))]) + '\n')
 
     def __delete__(self, instance):
-        glDeleteBuffers(4,self.buffer)
-        glDeleteBuffers(1,self.texture_buffer)
+        glDeleteBuffers(4, self.buffer)
+        glDeleteBuffers(1, self.texture_buffer)

@@ -20,6 +20,8 @@ class Transform:
         self.yawSpinAngle = 0.0
         self.rollSpinAngle = 0.0
 
+        self.scale = 1.0
+
     def move_left(self):
         self.xVel = -self.moving_speed
 
@@ -55,6 +57,9 @@ class Transform:
 
     def stop_yawing(self):
         self.yaw_rotate_speed = 0
+
+    def scale_model(self, scale_speed):
+        self.scale += scale_speed
 
     def update_position(self):
 

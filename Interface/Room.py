@@ -77,8 +77,8 @@ class Room(Model):
             # copy selected files to the new folder
             room_file = f'../res/Models/rooms/{room_name}/{room_name}.room'
             png_file = f'../res/Models/rooms/{room_name}/{room_name}.png'
-            super.create_png_image(png_file, self.texture_data)
-            super.create_room_file(room_file, self.vertex_coords, self.texture_coords, self.normal_coords)
+            self.create_png_image(png_file, self.texture_data)
+            self.create_room_file(room_file, self.vertex_coords, self.texture_coords, self.normal_coords)
 
         except IOError as e:
             print(e)

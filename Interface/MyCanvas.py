@@ -7,6 +7,7 @@ from Interface.InputManager import InputManager
 from Interface.Camera import *
 from Interface.Room import Room
 import os
+import numpy
 
 
 class MyCanvas(GLCanvas):
@@ -54,6 +55,7 @@ class MyCanvas(GLCanvas):
         self.Bind(wx.EVT_KEY_DOWN, self.input.keyboard)
         self.Bind(wx.EVT_KEY_UP, self.input.keyboard_up)
         self.Bind(wx.EVT_MOTION, self.input.mouse_passive_motion)
+        self.Bind(wx.EVT_MOUSEWHEEL, self.input.mouse_wheel_func)
         self.Bind(wx.EVT_IDLE, self.OnIdle)
 
     def OnIdle(self, event):
@@ -67,7 +69,7 @@ class MyCanvas(GLCanvas):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        glTranslatef(0.0, 0, -3.0)
+        glTranslatef(0.0, -700/3, -2000.0)
 
         self.camera.update_position()
         for x in self.furniture:
@@ -84,6 +86,7 @@ class MyCanvas(GLCanvas):
         for x in self.furniture:
             if self.furniture[x].is_shown():
                 # glPushMatrix()
+                glScale(self.furniture[x].scale, self.furniture[x].scale, self.furniture[x].scale)
                 glTranslatef(self.furniture[x].xPosition, self.furniture[x].yPosition, self.furniture[x].zPosition)
                 glRotatef(self.furniture[x].yawSpinAngle, 0, True, 0)
 
@@ -101,7 +104,7 @@ class MyCanvas(GLCanvas):
         glViewport(0, 0, size.width, size.height)
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-        gluPerspective(45.0, float(size.width)/float(size.height), 0.1, 4000.0)
+        gluPerspective(45.0, float(size.width)/float(size.height), 0.1, 8000.0)
 
     # i combine png and room files into one string separated by '*'
     def change_room(self, room_name, is_scanning=False):
@@ -123,6 +126,8 @@ class MyCanvas(GLCanvas):
 
     def create_a_scanning_room(self):
         self.room = Room(new_scan=True)
+        self.current_room_name = 'New room'
+        self.room.texture_data = numpy.zeros((self.room.texture_size[0], self.room.texture_size[1], 4), numpy.uint8)
 
     def add_furniture(self, png_file, obj_file, furniture_name):
         self.furniture.update({furniture_name: Furniture(png_file, obj_file)})

@@ -29,20 +29,20 @@ class InputManager:
         if key == 'S':
             self.camera.move_outward()
 
-        if not self.current_obj_key is None:
+        if self.current_obj_key is not None:
 
             if key == 'U':
-                self.object_dict[self.current_obj_key].move_up(1)
+                self.object_dict[self.current_obj_key].move_up()
             if key == 'O':
-                self.object_dict[self.current_obj_key].move_down(1)
+                self.object_dict[self.current_obj_key].move_down()
             if key == 'J':
-                self.object_dict[self.current_obj_key].move_left(1)
+                self.object_dict[self.current_obj_key].move_left()
             if key == 'L':
-                self.object_dict[self.current_obj_key].move_right(1)
+                self.object_dict[self.current_obj_key].move_right()
             if key == 'I':
-                self.object_dict[self.current_obj_key].move_inward(1)
+                self.object_dict[self.current_obj_key].move_inward()
             if key == 'K':
-                self.object_dict[self.current_obj_key].move_outward(1)
+                self.object_dict[self.current_obj_key].move_outward()
             if key == 'M':
                 self.object_dict[self.current_obj_key].yaw_left()
             if key == ',':
@@ -58,7 +58,7 @@ class InputManager:
             self.camera.stop_moving_in_z_direction()
 
         # if there is object to move
-        if not self.current_obj_key is None:
+        if self.current_obj_key is not None:
 
             if key == 'U' or key == 'O':
                 self.object_dict[self.current_obj_key].stop_moving_in_y_direction()
@@ -81,6 +81,21 @@ class InputManager:
             self.camera.yaw_right()
         else:
             self.camera.stop_yawing()
+
+    def mouse_wheel_func(self, *args):
+
+        delta = args[0].GetWheelRotation()
+        if self.current_obj_key is not None:
+            if delta > 0 :
+                self.object_dict[self.current_obj_key].scale_model(0.1)
+            elif delta < 0 and self.object_dict[self.current_obj_key].scale > 0.1:
+                self.object_dict[self.current_obj_key].scale_model(-0.1)
+            else:
+                pass
+
+        #
+        # if delta > 0 :
+        #     self.
 
     def set_current_moving_object(self, object_key):
 

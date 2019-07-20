@@ -40,11 +40,16 @@ class MyPanel(wx.Panel):
 
     def scan_func(self, event):
 
-        self.canvas.create_a_scanning_room()
-        self.is_scanning = True
+        if not self.is_scanning:
+            self.canvas.create_a_scanning_room()
+            self.is_scanning = True
+
+        else:
+            wx.LogError("Scanning is processing")
 
     def load_func(self, event):
 
+        # TODO make two loading options, one for loading room, another one for loading design.
         # prevent users from loading another room while scanning
         if not self.is_scanning:
 
@@ -72,17 +77,17 @@ class MyPanel(wx.Panel):
             wx.LogError("You can't load another room when scanning")
 
     def save_func(self, event):
-        # TODO save a design and prevent users from saving a new design while scanning
+
         if not self.is_scanning:
             with wx.TextEntryDialog(self, 'New Design', 'Enter the name of your Design', ) as textDialog:
 
-                if textDialog.ShowModal() == wx.CANCEL:
+                if textDialog.ShowModal() == wx.ID_CANCEL:
                     return
 
                 else:
                     design_name = textDialog.GetValue()
-                    if not os.path.exists(f'../res/Design{design_name}'):
-                        os.mkdir(f'../res/Design{design_name}')
+                    if not os.path.exists(f'../res/Design/{design_name}'):
+                        os.mkdir(f'../res/Design/{design_name}')
 
                     with open(f'../res/Design/{design_name}.design', 'w') as file:
 
@@ -105,7 +110,7 @@ class MyPanel(wx.Panel):
 
         with wx.TextEntryDialog(self, 'New room', 'Enter the name of your new scanned room', ) as textDialog:
 
-            if textDialog.ShowModal() == wx.CANCEL:
+            if textDialog.ShowModal() == wx.ID_CANCEL:
                 return
 
             else:
@@ -115,7 +120,8 @@ class MyPanel(wx.Panel):
                 self.canvas.room.save_scanned_room(room_name)
                 self.canvas.current_room_name = room_name
                 self.canvas.add_room_directory(f'../res/Models/rooms/{room_name}/{room_name}.png',
-                                               f'../res/Models/rooms/{room_name}/{room_name}.room'.png, room_name)
+                                               f'../res/Models/rooms/{room_name}/{room_name}.room',
+                                               room_name)
                 self.canvas.change_room(room_name, False)
 
         self.is_scanning = False
@@ -177,7 +183,6 @@ class MyPanel(wx.Panel):
         dialog = MyCheckBoxDialog(self, 'Select furniture', 'Choose your furniture', options)
 
         dialog.check_already_selected_options([x for x in self.canvas.furniture if self.canvas.furniture[x].being_shown])
-
         if dialog.ShowModal() == wx.ID_OK:
             for obj in self.canvas.furniture:
                 if obj in dialog.is_checked():

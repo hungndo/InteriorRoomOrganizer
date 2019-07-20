@@ -15,6 +15,8 @@ class Furniture(Model, Transform):
         self.being_shown = False
 
         self.ROTATE_SPEED = 0.3
+        self.moving_speed = 0.2
+        self.scale = 10
 
         self.vertex_coords = []
         self.texture_coords = []
@@ -126,26 +128,27 @@ class Furniture(Model, Transform):
     def is_shown(self):
         return self.being_shown
 
-    def move_left(self, moving_speed):
-        self.moving_speed = moving_speed
+    # TODO move objects by dragging mouse
+    def move_left(self, moving_speed = None):
+        # self.moving_speed = moving_speed
         super().move_left()
 
-    def move_right(self, moving_speed):
-        self.moving_speed = moving_speed
+    def move_right(self, moving_speed = None):
+        # self.moving_speed = moving_speed
         super().move_right()
 
-    def move_inward(self, moving_speed):
-        self.moving_speed = moving_speed
+    def move_inward(self, moving_speed = None):
+        # self.moving_speed = moving_speed
         super().move_inward()
 
-    def move_outward(self, moving_speed):
-        self.moving_speed = moving_speed
+    def move_outward(self, moving_speed = None):
+        # self.moving_speed = moving_speed
         super().move_outward()
 
-    def move_up(self, moving_speed):
-        self.moving_speed = moving_speed
+    def move_up(self, moving_speed = None):
+        # self.moving_speed = moving_speed
         super().move_up()
 
-    def move_down(self, moving_speed):
-        self.moving_speed = moving_speed
+    def move_down(self, moving_speed = None):
+        # self.moving_speed = moving_speed
         super().move_down()
