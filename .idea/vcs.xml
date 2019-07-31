@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../GitHub/Interior-Room-Organizer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../GitHub/lidar-scanner" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Interior Room Organizer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/UnusedFiles/totex/PyOpenGL_tutorials" vcs="Git" />
   </component>
 </project>

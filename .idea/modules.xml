@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/InteriorRoomOrganizer.iml" filepath="$PROJECT_DIR$/.idea/InteriorRoomOrganizer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../GitHub/lidar-scanner/.idea/lidar-scanner.iml" filepath="$PROJECT_DIR$/../../GitHub/lidar-scanner/.idea/lidar-scanner.iml" />
     </modules>
   </component>
 </project>

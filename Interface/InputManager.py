@@ -20,6 +20,8 @@ class InputManager:
     def keyboard(self, *args):
 
         key = chr(args[0].GetKeyCode())
+
+        # move the camera
         if key == 'A':
             self.camera.move_left()
         if key == 'D':
@@ -29,6 +31,7 @@ class InputManager:
         if key == 'S':
             self.camera.move_outward()
 
+        # if there is an object to move, move the current selected object
         if self.current_obj_key is not None:
 
             if key == 'U':
@@ -52,12 +55,13 @@ class InputManager:
 
         key = chr(args[0].GetKeyCode())
 
+        # move the camera
         if key == 'A' or key == 'D':
             self.camera.stop_moving_in_x_direction()
         if key == 'W' or key == 'S':
             self.camera.stop_moving_in_z_direction()
 
-        # if there is object to move
+        # if there is object to move, stop moving the current selected object
         if self.current_obj_key is not None:
 
             if key == 'U' or key == 'O':
@@ -70,6 +74,10 @@ class InputManager:
                 self.object_dict[self.current_obj_key].stop_yawing()
 
     def mouse_passive_motion(self, *args):
+
+        # this is to rotate the viewing vantage
+        # it rotates when users move the cursor to a certain OFFSET_TO_CHANGE_ANGLE position to the desire direction.
+        # and stops rotating when it gets near to the edge
 
         mouse_position = args[0].GetPosition()
         # rotate left
@@ -84,6 +92,8 @@ class InputManager:
 
     def mouse_wheel_func(self, *args):
 
+        # these are mostly for scaling furniture
+
         delta = args[0].GetWheelRotation()
         if self.current_obj_key is not None:
             if delta > 0 :
@@ -92,10 +102,6 @@ class InputManager:
                 self.object_dict[self.current_obj_key].scale_model(-0.1)
             else:
                 pass
-
-        #
-        # if delta > 0 :
-        #     self.
 
     def set_current_moving_object(self, object_key):
 

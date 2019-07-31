@@ -18,20 +18,20 @@ class MyPanel(wx.Panel):
 
         self.btn_scan = wx.Button(self, -1, label ="New Scan", pos=(850, 100), size=(135, 50))
         self.btn_scan.SetBackgroundColour("#90AFC5")
-        self.btn_load = wx.Button(self, -1, label ="Load", pos=(850, 180), size=(135, 50))
+        self.btn_load = wx.Button(self, -1, label ="Load", pos=(850, 200), size=(135, 50))
         self.btn_load.SetBackgroundColour("#90AFC5")
-        self.btn_save = wx.Button(self, -1, label ="Save", pos=(850, 260), size=(135, 50))
-        self.btn_save.SetBackgroundColour("#90AFC5")
-        self.btn_add_furniture = wx.Button(self, -1, label="Add Furniture", pos=(850, 340), size=(135, 50))
+        # self.btn_save = wx.Button(self, -1, label ="Save", pos=(850, 260), size=(135, 50))
+        # self.btn_save.SetBackgroundColour("#90AFC5")
+        self.btn_add_furniture = wx.Button(self, -1, label="Add Furniture", pos=(850, 300), size=(135, 50))
         self.btn_add_furniture.SetBackgroundColour("#90AFC5")
-        self.btn_move_furniture = wx.Button(self, -1, label='Move Furniture', pos=(850, 420), size=(135, 50))
+        self.btn_move_furniture = wx.Button(self, -1, label='Move Furniture', pos=(850, 400), size=(135, 50))
         self.btn_move_furniture.SetBackgroundColour('#90AFC5')
         self.btn_import = wx.Button(self, -1, label="Import Furniture", pos=(850, 500), size=(135, 50))
         self.btn_import.SetBackgroundColour("#90AFC5")
 
         self.Bind(wx.EVT_BUTTON,self.scan_func, self.btn_scan)
         self.Bind(wx.EVT_BUTTON,self.load_func, self.btn_load)
-        self.Bind(wx.EVT_BUTTON,self.save_func, self.btn_save)
+        # self.Bind(wx.EVT_BUTTON,self.save_func, self.btn_save)
         self.Bind(wx.EVT_BUTTON,self.add_furniture_func, self.btn_add_furniture)
         self.Bind(wx.EVT_BUTTON,self.move_furniture_func, self.btn_move_furniture)
         self.Bind(wx.EVT_BUTTON,self.import_func, self.btn_import)
@@ -45,7 +45,8 @@ class MyPanel(wx.Panel):
             self.is_scanning = True
 
         else:
-            wx.LogError("Scanning is processing")
+            self.is_scanning = False
+
 
     def load_func(self, event):
 
@@ -165,9 +166,9 @@ class MyPanel(wx.Panel):
                         Furniture.save_imported_furniture(read_files, name)
 
                         if read_files[0].endswith('png'):
-                            self.canvas.add_furniture(read_files[0], read_files[1])
+                            self.canvas.add_furniture(read_files[0], read_files[1],name)
                         else:
-                            self.canvas.add_furniture(read_files[1], read_files[0])
+                            self.canvas.add_furniture(read_files[1], read_files[0],name)
 
             except IOError as e:
                 wx.LogError(str(e))

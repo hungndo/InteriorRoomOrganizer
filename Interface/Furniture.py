@@ -15,8 +15,8 @@ class Furniture(Model, Transform):
         self.being_shown = False
 
         self.ROTATE_SPEED = 0.3
-        self.moving_speed = 0.2
-        self.scale = 10
+        self.moving_speed = 0.1
+        self.scale = 30
 
         self.vertex_coords = []
         self.texture_coords = []
@@ -34,6 +34,8 @@ class Furniture(Model, Transform):
         image = cv2.imread(texture_file, cv2.IMREAD_UNCHANGED)
         self.texture_size = image.shape
         image = cv2.flip(image, 0)
+
+        # since open-cv reads image files in BGRA, we need to convert it to RGBA
         image = cv2.cvtColor(image, cv2.COLOR_BGRA2RGBA)
 
         for v in range(self.texture_size[0]):
@@ -41,6 +43,7 @@ class Furniture(Model, Transform):
                 self.texture_data.append(image[v, u])
 
         self.texture_data = numpy.array(self.texture_data, numpy.uint8)
+
         # read obj
         self.read_obj_file(obj_file)
 
@@ -49,7 +52,7 @@ class Furniture(Model, Transform):
         tmp_vertices = []
         tmp_textures = []
         tmp_normals = []
-        index_count = 0
+        index_count = 0     # this variable to to create the indices_list, however, I am not using it now
 
         with open(obj_file, 'r') as file:
             for line in file:
@@ -75,10 +78,17 @@ class Furniture(Model, Transform):
 
                         self.indices.append(index_count)
                         index_count += 1
-                        x = list(map(int,tmp[i].split('/')))
+                        t = tmp[i].split('/')
+                        for q in range(len(t)):
+                            if t[q] == '':
+                                t[q] = 0
+                        x = list(map(int, t))
                         self.refine_vertices(x, tmp_vertices, tmp_textures, tmp_normals)
 
     def refine_vertices(self, vertex, tmp_vertices, tmp_textures, tmp_normals):
+
+        # since obj file doesn't give vertex, texture, normal coords in the correct order,
+        # this function is to rearrange those
 
         # each indices is subtracted by 1 because obj format counts from 1
 

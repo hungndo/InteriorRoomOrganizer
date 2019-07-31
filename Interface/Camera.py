@@ -7,5 +7,5 @@ class Camera(Transform):
 
         Transform.__init__(self)
 
-        self.moving_speed = -2.0
-        self.ROTATE_SPEED = 0.1
+        self.moving_speed = -4.0
+        self.ROTATE_SPEED = 0.2

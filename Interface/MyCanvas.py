@@ -29,6 +29,8 @@ class MyCanvas(GLCanvas):
         self.input = InputManager(850, 700, self.room, self.furniture, self.camera)
 
         # load rooms and furniture
+        # select all the folders in rooms and furniture folders that have one png file and one room file
+        # TODO need to handle when those two files aren't png and room
 
         for root, directory, file in os.walk('../res/Models/rooms'):
             if len(file) == 2:
@@ -42,7 +44,6 @@ class MyCanvas(GLCanvas):
 
         # init canvas
         glClearColor(42/256, 49/256, 50/256, 0.8)
-        # glClearColor(45/256,48/256,51/256,0.8)
         # glClearDepth(1)
         glEnable(GL_DEPTH_TEST)
         glDepthFunc(GL_LESS)
@@ -69,32 +70,35 @@ class MyCanvas(GLCanvas):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        glTranslatef(0.0, -700/3, -2000.0)
+        glTranslatef(0.0, -700/4, -1000.0)
 
         self.camera.update_position()
         for x in self.furniture:
             self.furniture[x].update_position()
 
         # draw block in coordinate of the room
-        # glPushMatrix()
+        glPushMatrix()
         glTranslatef(self.camera.xPosition, self.camera.yPosition, self.camera.zPosition)
         glRotatef(self.camera.yawSpinAngle, 0, True, 0)
 
         if not self.current_room_name == 'Nothing':
+            glPushMatrix()
+            glScale(6.0, 6.0, 6.0)
             self.room.draw()
+            glPopMatrix()
 
         for x in self.furniture:
             if self.furniture[x].is_shown():
-                # glPushMatrix()
+                glPushMatrix()
                 glScale(self.furniture[x].scale, self.furniture[x].scale, self.furniture[x].scale)
-                glTranslatef(self.furniture[x].xPosition, self.furniture[x].yPosition, self.furniture[x].zPosition)
+                glTranslatef(self.furniture[x].xPosition, self.furniture[x].yPosition+10, self.furniture[x].zPosition)
                 glRotatef(self.furniture[x].yawSpinAngle, 0, True, 0)
 
                 self.furniture[x].draw()
 
-                # glPopMatrix()
+                glPopMatrix()
 
-        # glPopMatrix()
+        glPopMatrix()
 
         self.SwapBuffers()
 
@@ -104,7 +108,7 @@ class MyCanvas(GLCanvas):
         glViewport(0, 0, size.width, size.height)
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-        gluPerspective(45.0, float(size.width)/float(size.height), 0.1, 8000.0)
+        gluPerspective(45.0, float(size.width)/float(size.height), 0.1, 30000.0)
 
     # i combine png and room files into one string separated by '*'
     def change_room(self, room_name, is_scanning=False):
@@ -121,13 +125,18 @@ class MyCanvas(GLCanvas):
         self.current_room_name = room_name
 
     def add_room_directory(self, png_file, room_file, room_name):
-        dirs = '*'.join([png_file,room_file])
-        self.room_directories.update({room_name: dirs})
 
-    def create_a_scanning_room(self):
+        dirs = '*'.join([png_file,room_file])   # combine two file directories into one string for easy control
+        self.room_directories.update({room_name: dirs})     # update dictionary of room directories
+
+    def create_a_scanning_room(self):           # create an empty room to start scanning
         self.room = Room(new_scan=True)
-        self.current_room_name = 'New room'
-        self.room.texture_data = numpy.zeros((self.room.texture_size[0], self.room.texture_size[1], 4), numpy.uint8)
+        self.current_room_name = 'New room'     # this name is arbitrary, I just switch it to 'New room' so that
+        # function room.draw() can be called # TODO need to get around this
+
+        # init a black texture file
+        self.room.image = numpy.zeros((self.room.texture_size[0], self.room.texture_size[1], 4), numpy.uint8)
+        self.room.texture_data = numpy.zeros((self.room.texture_size[0]*self.room.texture_size[1], 4), numpy.uint8)
 
     def add_furniture(self, png_file, obj_file, furniture_name):
         self.furniture.update({furniture_name: Furniture(png_file, obj_file)})

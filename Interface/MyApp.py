@@ -11,6 +11,7 @@ class MyApp(wx.App):
         self.keepGoing = True
         return True
 
+    # override the wxpython main loop so that we can use async.
     async def MainLoop(self):
 
         evtloop = wx.GUIEventLoop()

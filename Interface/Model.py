@@ -1,8 +1,6 @@
 from OpenGL.GL import *
 from Interface.Shader import Shader
-import numpy
 import cv2
-import os
 
 
 class Model:
@@ -14,6 +12,7 @@ class Model:
         self.normal_coords = []
         self.indices = []
 
+        self.image = None
         self.texture_data = None
         self.texture_size = None
 
@@ -76,7 +75,7 @@ class Model:
         # glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.buffer[3])
         # glDrawElements(GL_TRIANGLES, len(self.indices), GL_UNSIGNED_INT, None)
 
-        glDrawArrays(GL_TRIANGLES, 0, len(self.indices))
+        glDrawArrays(GL_TRIANGLES, 0, len(self.vertex_coords))
 
     def update_buffers(self):
 
@@ -106,12 +105,12 @@ class Model:
                      (ctypes.c_float * len(self.normal_coords))(*self.normal_coords),
                      GL_STATIC_DRAW)
 
-        # indices
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.buffer[3])
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                     len(self.indices)*4,
-                     (ctypes.c_uint * len(self.indices))(*self.indices),
-                     GL_STATIC_DRAW)
+        # # indices
+        # glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.buffer[3])
+        # glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+        #              len(self.indices)*4,
+        #              (ctypes.c_uint * len(self.indices))(*self.indices),
+        #              GL_STATIC_DRAW)
 
     def draw(self):
 
@@ -136,42 +135,59 @@ class Model:
         self.shader.begin()
         self.draw_vbo()
         self.shader.end()
-        # self.update_model_data((0,-1000,0),(0.03,0.0),(255,255,255,255),(0,0,0))
 
     def read_model(self):
         pass
 
     def update_model_data(self, new_vertex_coord, new_texture_coord, new_texture_data, new_normal_coord):
 
-        self.vertex_coords.extend(list(map(float, new_vertex_coord)))
+        # the reason why i make two additional vertices for each collected is because I want to draw
+        # a triangle for each
 
-        tmp = [float(new_texture_coord[0])/self.texture_size[0], float(new_texture_coord[1])/self.texture_size[1] ]
-        self.texture_coords.extend(tmp)
+        # this may help avoiding dependencies wrong collected vertex that may skew the model
+
+        # TODO further data cloud optimization algorithm is needed to improve the quality of the model
+
+        deviation = 3 # this determines how far two additionally generated vertices vary from the collected one
+
+        self.vertex_coords.extend(list(map(float, new_vertex_coord)))
+        self.vertex_coords.extend(list(map(float, [new_vertex_coord[0] + deviation,
+                                                   new_vertex_coord[1] + deviation,
+                                                   new_vertex_coord[2] + deviation])))
+
+        self.vertex_coords.extend(list(map(float, [new_vertex_coord[0] - deviation,
+                                                   new_vertex_coord[1] + deviation,
+                                                   new_vertex_coord[2] - deviation])))
+
+        # u v
+        vt = [float(new_texture_coord[0])/self.texture_size[0], float(new_texture_coord[1])/self.texture_size[1]]
+        self.texture_coords.extend(vt)
+        self.texture_coords.extend(vt)
+        self.texture_coords.extend(vt)
 
         self.normal_coords.extend(list(map(float, new_normal_coord)))
+        self.normal_coords.extend(list(map(float, new_normal_coord)))
+        self.normal_coords.extend(list(map(float, new_normal_coord)))
 
-        self.texture_data[new_texture_coord[0], new_texture_coord[1]] = list(map(int, new_texture_data))
-        # print(self.indices)
-        new_index = int(len(self.vertex_coords)/3) - 1
-        if new_index < 3:
-            self.indices.append(new_index)
-        else:
-            self.indices.extend((new_index-2, new_index-1, new_index))
-
+        # only when processing with image uv array, we have to access it img[v][u]
+        self.image[new_texture_coord[1], new_texture_coord[0]] = list(map(int, new_texture_data))
+        self.texture_data[new_texture_coord[0] + self.texture_size[1]*new_texture_coord[1]] = \
+            self.image[new_texture_coord[1], new_texture_coord[0]]
+        # # print(self.indices)
+        # new_index = int(len(self.vertex_coords)/3) - 1
+        # if new_index < 3:
+        #     self.indices.append(new_index)
+        # else:
+        #     self.indices.extend((new_index-2, new_index-1, new_index))
+        #
         self.update_awaiting = True
 
     @staticmethod
-    def create_png_image( png_file, texture_data):
-        # height, width = 400, 400
-        # img = numpy.zeros((height, width, 4), numpy.uint8)
-        #
-        # for v in range(height):
-        #     for u in range(width):
-        #         if u+v*height < len(texture_data):
-        #             img[u][v] = texture_data[u+v*height]
-        #         else:
-        #             img[u][v] = (0, 0, 0, 255)
+    def create_png_image( png_file, img):
 
+        # since opencv reads images in BGRA mode,we need to convert the texture_data to BGRA
+
+        texture_data = cv2.cvtColor(img, cv2.COLOR_RGBA2BGRA)
         cv2.imwrite(png_file, texture_data)
 
     @staticmethod
